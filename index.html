@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EnRoute | Travel made simple</title>
+  <meta name="description" content="Simplify travel planning with a comprehensive platform for booking flights, hotels, car rentals, and airport transfers, catering to individuals and businesses.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Icons: drawn once here, reused below with <use href="#i-name"> -->
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="i-plane" viewBox="0 0 24 24"><path d="m3 21 18-9L3 3v7l13 2-13 2v7Z"/><path d="M9 12v7"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 5v14M21 19v-8a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v8M3 15h18M7 9V7a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="m5 17-2-2v-4l2-5h14l2 5v4l-2 2H5Z"/><path d="M7 17v2M17 17v2M3 11h18M7 14h.01M17 14h.01"/></symbol>
+    <symbol id="i-transfer" viewBox="0 0 24 24"><path d="M4 17h16M6 17V9h12v8M8 9l2-4h4l2 4M8 13h.01M16 13h.01M7 17v2M17 17v2"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3 2-5a7 7 0 0 1-2-5V8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v7Z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+    <symbol id="i-support" viewBox="0 0 24 24"><path d="M4 13a8 8 0 0 1 16 0M4 13v5h4v-6H4M20 13v5h-4v-6h4M16 20c-1 1-2 1-4 1"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 22V4h16v18M8 8h2M14 8h2M8 12h2M14 12h2M8 16h2M14 16h2M2 22h20"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6 2h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4a4 4 0 0 1-4 4C9 21 3 15 2 6a4 4 0 0 1 4-4Z"/></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="m12 3 1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3Z"/><path d="m19 15 .7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7L19 15Z"/></symbol>
+  </svg>
+
+  <main id="top">
+
+    <!-- ===== Header ===== -->
+    <header class="header">
+      <div class="container nav-wrap">
+        <a href="#top" class="logo logo-header" aria-label="EnRoute home">
+          <img class="logo-header-image" src="images/enroute-logo.png" alt="EnRoute">
+        </a>
+        <nav class="nav-links" id="navLinks">
+          <a href="#services">Services</a>
+          <a href="#about">Why EnRoute</a>
+          <a href="#corporate">Corporate</a>
+          <a href="#faq">FAQs</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="nav-actions">
+          <button type="button" class="login-button" data-open-login><svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-user"/></svg> Log in</button>
+          <button type="button" class="button button-primary" data-book="flight">Plan my trip</button>
+          <button type="button" class="menu-button" id="menuButton" aria-label="Toggle menu"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-menu"/></svg></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+      <img src="https://images.unsplash.com/photo-1765475467677-579353b25ce0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=85&w=1800" alt="A modern bridge crossing the Lagos waterfront">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <div class="hero-copy">
+          <div class="eyebrow-light"><span></span> From Nigeria to everywhere</div>
+          <h1>Travel made simple.<br>From booking to arrival.</h1>
+          <p>Flights, accommodation, car rentals and airport transfers — thoughtfully arranged through one convenient travel partner.</p>
+          <div class="hero-actions">
+            <button type="button" class="button button-white" data-book="flight">Start planning <svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            <a href="#services" class="button button-ghost">Explore services</a>
+          </div>
+        </div>
+        <div class="hero-aside">
+          <p>Lagos today. The world tomorrow.</p>
+          <div class="route-line"><span>LOS</span><i></i><svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-plane"/></svg><i></i><span>LHR</span></div>
+          <small>Local and international travel support from one trusted team</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Booking panel (tabs switch between the four forms) ===== -->
+    <div class="container booking-overlap">
+      <div class="booking-panel" id="booking">
+        <div class="booking-tabs" role="tablist" aria-label="Travel services">
+          <button type="button" role="tab" aria-selected="true" class="active" data-service="flight"><svg class="icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-plane"/></svg><span>Flights</span></button>
+          <button type="button" role="tab" aria-selected="false" data-service="hotel"><svg class="icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bed"/></svg><span>Stays</span></button>
+          <button type="button" role="tab" aria-selected="false" data-service="car"><svg class="icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-car"/></svg><span>Cars</span></button>
+          <button type="button" role="tab" aria-selected="false" data-service="transfer"><svg class="icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-transfer"/></svg><span>Transfers</span></button>
+        </div>
+
+        <div class="request-success" id="requestSuccess" hidden>
+          <span><svg class="icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
+          <div>
+            <h3>Your request is ready for the next step.</h3>
+            <p>This preview does not send data yet. Connect the form to the EnRoute backend to create a secure request and customer reference.</p>
+          </div>
+          <button type="button" class="button button-secondary" id="editRequest">Edit request</button>
+        </div>
+
+        <!-- Flights -->
+        <form class="booking-form" data-service="flight">
+          <div class="booking-heading">
+            <div>
+              <span>Plan your journey</span>
+              <h3>Flight Bookings</h3>
+            </div>
+            <div class="segmented" id="tripType">
+              <button type="button" class="active">Round trip</button>
+              <button type="button">One way</button>
+            </div>
+          </div>
+          <div class="field-grid">
+            <label><span>From</span><input type="text" placeholder="City or airport" required></label>
+            <label><span>To</span><input type="text" placeholder="Where are you going?" required></label>
+            <label><span>Departure</span><input type="date" required></label>
+            <label><span>Return</span><input type="date" id="returnDate" required></label>
+            <label><span>Travellers</span><select><option value="" disabled selected>1 passenger</option><option>1</option><option>2</option><option>3+</option></select></label>
+            <label><span>Cabin</span><select><option value="" disabled selected>Economy</option><option>Economy</option><option>Business</option><option>First class</option></select></label>
+            <button type="submit" class="button button-primary">Send request <svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </div>
+          <p class="form-note"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-support"/></svg> No live prices yet. Our travel team will review your request and confirm the best available options.</p>
+        </form>
+
+        <!-- Stays -->
+        <form class="booking-form" data-service="hotel" hidden>
+          <div class="booking-heading">
+            <div>
+              <span>Plan your journey</span>
+              <h3>Hotels &amp; Apartments</h3>
+            </div>
+          </div>
+          <div class="field-grid">
+            <label class="field-wide"><span>Destination</span><input type="text" placeholder="City or property" required></label>
+            <label><span>Check in</span><input type="date" required></label>
+            <label><span>Check out</span><input type="date" required></label>
+            <label><span>Guests</span><select><option value="" disabled selected>2 guests</option><option>1</option><option>2</option><option>3+</option></select></label>
+            <label><span>Rooms</span><select><option value="" disabled selected>1 room</option><option>1</option><option>2</option><option>3+</option></select></label>
+            <button type="submit" class="button button-primary">Send request <svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </div>
+          <p class="form-note"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-support"/></svg> No live prices yet. Our travel team will review your request and confirm the best available options.</p>
+        </form>
+
+        <!-- Cars -->
+        <form class="booking-form" data-service="car" hidden>
+          <div class="booking-heading">
+            <div>
+              <span>Plan your journey</span>
+              <h3>Car Rentals</h3>
+            </div>
+          </div>
+          <div class="field-grid">
+            <label class="field-wide"><span>Pickup location</span><input type="text" placeholder="City, airport or address" required></label>
+            <label><span>Pickup date</span><input type="date" required></label>
+            <label><span>Pickup time</span><input type="time" required></label>
+            <label><span>Return date</span><input type="date" required></label>
+            <label><span>Vehicle type</span><select><option value="" disabled selected>Any vehicle</option><option>Standard</option><option>SUV</option><option>Luxury</option></select></label>
+            <button type="submit" class="button button-primary">Send request <svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </div>
+          <p class="form-note"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-support"/></svg> No live prices yet. Our travel team will review your request and confirm the best available options.</p>
+        </form>
+
+        <!-- Transfers -->
+        <form class="booking-form" data-service="transfer" hidden>
+          <div class="booking-heading">
+            <div>
+              <span>Plan your journey</span>
+              <h3>Airport Transfers</h3>
+            </div>
+          </div>
+          <div class="field-grid">
+            <label><span>Airport</span><input type="text" placeholder="Arrival airport" required></label>
+            <label><span>Destination</span><input type="text" placeholder="Hotel or address" required></label>
+            <label><span>Pickup date</span><input type="date" required></label>
+            <label><span>Pickup time</span><input type="time" required></label>
+            <label><span>Passengers</span><select><option value="" disabled selected>1 passenger</option><option>1</option><option>2</option><option>3+</option></select></label>
+            <label><span>Vehicle type</span><select><option value="" disabled selected>Standard</option><option>Standard</option><option>SUV</option><option>Luxury</option></select></label>
+            <button type="submit" class="button button-primary">Send request <svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </div>
+          <p class="form-note"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-support"/></svg> No live prices yet. Our travel team will review your request and confirm the best available options.</p>
+        </form>
+      </div>
+    </div>
+
+    <!-- ===== Services ===== -->
+    <section class="service-section" id="services">
+      <div class="container">
+        <div class="section-title">
+          <p>What we arrange</p>
+          <h2>Everything your journey needs.</h2>
+          <span>Four core services, connected by one team that sees the whole trip.</span>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="service-image">
+              <img src="https://images.unsplash.com/photo-1603792835233-f4f7c2497d4f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=85&w=1200" alt="A Black woman travelling with luggage">
+              <span>01</span>
+            </div>
+            <div class="service-body">
+              <div class="service-icon"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-plane"/></svg></div>
+              <h3>Flight Bookings</h3>
+              <p>Local and international flight requests, thoughtfully coordinated around your schedule and preferences.</p>
+              <button type="button" data-book="flight">Request a flight <svg class="icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-image">
+              <img src="https://images.unsplash.com/photo-1761377197584-2eed555e2b0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=85&w=1200" alt="A Black traveller with a suitcase in a premium hotel lobby">
+              <span>02</span>
+            </div>
+            <div class="service-body">
+              <div class="service-icon"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bed"/></svg></div>
+              <h3>Hotels &amp; Apartments</h3>
+              <p>Hotels and short-stay apartments selected to suit your destination, budget and style of travel.</p>
+              <button type="button" data-book="hotel">Find a stay <svg class="icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-image">
+              <img src="https://images.unsplash.com/photo-1696339058184-2e6d1da36ad3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=85&w=1200" alt="A car driving along a modern bridge road in Lagos, Nigeria">
+              <span>03</span>
+            </div>
+            <div class="service-body">
+              <div class="service-icon"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-car"/></svg></div>
+              <h3>Car Rentals</h3>
+              <p>Flexible vehicle requests for business, leisure and everything your itinerary calls for.</p>
+              <button type="button" data-book="car">Request a car <svg class="icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-image">
+              <img src="https://images.unsplash.com/photo-1504150558240-0b4fd8946624?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=85&w=1200" alt="A traveller arriving at an airport with luggage">
+              <span>04</span>
+            </div>
+            <div class="service-body">
+              <div class="service-icon"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-transfer"/></svg></div>
+              <h3>Airport Transfers</h3>
+              <p>Pre-arranged airport pickup and drop-off so your journey stays seamless after you land.</p>
+              <button type="button" data-book="transfer">Arrange a transfer <svg class="icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Why EnRoute ===== -->
+    <section class="about-section" id="about">
+      <div class="container about-grid">
+        <div class="about-copy">
+          <div class="section-title">
+            <p>Why EnRoute</p>
+            <h2>Tell us where you’re going. We’ll help put the journey together.</h2>
+          </div>
+          <p class="lead">Travel rarely stops at a ticket. You may need somewhere to stay, a car when you arrive, and a reliable pickup from the airport. EnRoute brings those moving parts into one clear plan.</p>
+          <div class="benefit-grid">
+            <div class="benefit">
+              <span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <div><h3>Convenient booking</h3><p>Multiple travel needs, one point of contact.</p></div>
+            </div>
+            <div class="benefit">
+              <span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <div><h3>Personal assistance</h3><p>Real support before, during and after booking.</p></div>
+            </div>
+            <div class="benefit">
+              <span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <div><h3>Reliable coordination</h3><p>Every part considered as one connected journey.</p></div>
+            </div>
+            <div class="benefit">
+              <span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <div><h3>Local &amp; international</h3><p>Support for trips within Nigeria and beyond.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="journey-card">
+          <div class="journey-top">
+            <span>Your journey</span>
+            <strong>Owerri → Lagos</strong>
+            <small>Coordinated through EnRoute</small>
+          </div>
+          <div class="journey-steps">
+            <div>
+              <span><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-plane"/></svg></span>
+              <p><strong>Flights</strong><small>OWR to LOS</small></p>
+              <i><svg class="icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></i>
+            </div>
+            <div>
+              <span><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bed"/></svg></span>
+              <p><strong>Stays</strong><small>3 nights in Victoria Island</small></p>
+              <i><svg class="icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></i>
+            </div>
+            <div>
+              <span><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-car"/></svg></span>
+              <p><strong>Cars</strong><small>Compact SUV</small></p>
+              <i><svg class="icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></i>
+            </div>
+            <div>
+              <span><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-transfer"/></svg></span>
+              <p><strong>Transfers</strong><small>Airport to hotel</small></p>
+              <i><svg class="icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></i>
+            </div>
+          </div>
+          <button type="button" class="button button-secondary" data-book="flight">Plan a journey like this <svg class="icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Platform strip ===== -->
+    <section class="platform-strip">
+      <div class="container platform-grid">
+        <div class="platform-intro">
+          <p>Built for today. Ready for what’s next.</p>
+          <h2>A smarter travel platform in the making.</h2>
+        </div>
+        <div class="platform-point">
+          <svg class="icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg>
+          <h3>Secure by design</h3>
+          <p>Customer and payment data belong behind protected systems — never in frontend code.</p>
+        </div>
+        <div class="platform-point">
+          <svg class="icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg>
+          <h3>Supplier flexible</h3>
+          <p>Prepared to connect with Wakanow or other travel inventory without redesigning the experience.</p>
+        </div>
+        <div class="platform-point">
+          <svg class="icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-support"/></svg>
+          <h3>Human when it matters</h3>
+          <p>Automation where it helps, personal travel support whenever it is needed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Travel opportunities ===== -->
+    <section class="deals-section">
+      <div class="container">
+        <div class="deals-heading">
+          <div class="section-title">
+            <p>Travel opportunities</p>
+            <h2>Worth going somewhere for.</h2>
+            <span>Promotions will be published only when availability and terms are verified by our team.</span>
+          </div>
+          <button type="button" class="button button-secondary" data-book="flight">Ask about current offers</button>
+        </div>
+        <div class="deal-grid">
+          <article class="deal-main">
+            <img src="https://images.unsplash.com/photo-1559833064-6f4573ec1ac9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=85&w=1400" alt="The Lagos skyline beside the waterfront">
+            <div>
+              <span>From Lagos and beyond</span>
+              <h3>Planning ahead can open up better options.</h3>
+              <p>Tell us your route and flexible dates. We’ll check available fares and come back with real options.</p>
+            </div>
+          </article>
+          <article class="deal-side">
+            <img class="deal-side-image" src="https://images.unsplash.com/photo-1745725427804-4d94df0c5eb7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=85&w=1200" alt="A premium hotel property surrounded by palm trees in Nigeria">
+            <span><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bed"/></svg></span>
+            <div>
+              <small>Luxury stays in Nigeria</small>
+              <h3>Business stays, city breaks and extended visits.</h3>
+              <p>Share your destination and budget for a tailored shortlist of verified options.</p>
+            </div>
+            <button type="button" data-book="hotel" aria-label="Find a stay"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Corporate ===== -->
+    <section class="corporate-section" id="corporate">
+      <div class="container corporate-grid">
+        <div>
+          <div class="section-title section-title-light">
+            <p>EnRoute for business</p>
+            <h2>Business travel, without the loose ends.</h2>
+            <span>A coordinated travel desk for staff movements, executives, visiting guests, meetings and group transport.</span>
+          </div>
+          <div class="corporate-list">
+            <span><svg class="icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Staff &amp; executive travel</span>
+            <span><svg class="icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Hotels for visiting guests</span>
+            <span><svg class="icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Airport pickups &amp; car rentals</span>
+            <span><svg class="icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Meetings &amp; group arrangements</span>
+          </div>
+          <a href="#contact" class="button button-white">Discuss corporate travel <svg class="icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="corporate-card">
+          <span><svg class="icon" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-building"/></svg></span>
+          <p>One travel partner</p>
+          <h3>Clear requests.<br>Coordinated bookings.<br>Reliable support.</h3>
+          <small>Built to grow into managed travel reporting, approvals and dedicated company profiles.</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Mission & vision ===== -->
+    <section class="mission-section">
+      <div class="container mission-grid">
+        <div><span>Our mission</span><p>“To remove the stress, uncertainty and unnecessary complexity from travel by connecting people to the services they need to move, stay and arrive with confidence.”</p></div>
+        <div><span>Our vision</span><p>“To build a travel platform that becomes the trusted starting point for every journey — connecting people, places and possibilities through simpler, smarter and more accessible travel.”</p></div>
+      </div>
+    </section>
+
+    <!-- ===== FAQs (one answer open at a time) ===== -->
+    <section class="faq-section" id="faq">
+      <div class="container faq-grid">
+        <div>
+          <div class="section-title">
+            <p>Frequently asked</p>
+            <h2>Good questions, clear answers.</h2>
+            <span>Everything you need to understand how travel requests work with EnRoute today.</span>
+          </div>
+          <a href="#contact" class="button button-secondary">Ask us something else</a>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item open">
+            <button type="button"><span>How do I make a booking?</span><i>−</i></button>
+            <p>Choose the service you need, complete the request form and submit it. Our team will confirm availability, pricing and the next steps with you.</p>
+          </div>
+          <div class="faq-item">
+            <button type="button"><span>Can I book local and international flights?</span><i>+</i></button>
+            <p hidden>Yes. EnRoute supports requests for both local and international travel. Live inventory will be added as supplier integrations become available.</p>
+          </div>
+          <div class="faq-item">
+            <button type="button"><span>Do you offer airport pickup?</span><i>+</i></button>
+            <p hidden>Yes. You can arrange a pickup or drop-off in advance by sharing your airport, destination, arrival time and passenger details.</p>
+          </div>
+          <div class="faq-item">
+            <button type="button"><span>How will I receive my confirmation?</span><i>+</i></button>
+            <p hidden>Once your request is processed and payment is confirmed, your booking summary and reference will be sent by email and/or WhatsApp.</p>
+          </div>
+          <div class="faq-item">
+            <button type="button"><span>Can I change or cancel a booking?</span><i>+</i></button>
+            <p hidden>Change and cancellation rules vary by airline, hotel or service provider. Contact us promptly and we will explain the applicable terms before processing your request.</p>
+          </div>
+          <div class="faq-item">
+            <button type="button"><span>Do I need an account to make a request?</span><i>+</i></button>
+            <p hidden>You can begin a request without an account. Creating an account will eventually let you view trip history, payment status and booking references in one place.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section class="contact-section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy">
+          <div class="section-title section-title-light">
+            <p>Talk to EnRoute</p>
+            <h2>Let’s put your next journey together.</h2>
+            <span>Send us your travel request or reach the team directly. WhatsApp is the fastest way to get assistance.</span>
+          </div>
+          <div class="contact-methods">
+            <a href="https://wa.me/2348135458426"><span><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chat"/></svg></span><div><small>WhatsApp</small><strong>+234 813 545 8426</strong></div></a>
+            <a href="tel:+2349025641390"><span><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg></span><div><small>Call us</small><strong>+234 902 564 1390</strong></div></a>
+            <a href="mailto:Enroutebookingsng@gmail.com"><span><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></span><div><small>Email</small><strong>Enroutebookingsng@gmail.com</strong></div></a>
+            <a href="https://instagram.com/Enroute_Travelsng"><span><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-instagram"/></svg></span><div><small>Instagram</small><strong>@Enroute_Travelsng</strong></div></a>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div><p>Quick enquiry</p><h3>How can we help?</h3></div>
+          <label><span>Your name</span><input required type="text" placeholder="Full name"></label>
+          <label><span>Email or phone</span><input required type="text" placeholder="How should we reach you?"></label>
+          <label><span>Service needed</span><select><option value="" disabled selected>Select a service</option><option>Flight Bookings</option><option>Hotels &amp; Apartments</option><option>Car Rentals</option><option>Airport Transfers</option></select></label>
+          <label><span>Trip details</span><textarea required placeholder="Tell us where you’re going, your dates and what you need."></textarea></label>
+          <button type="submit" class="button button-primary">Send enquiry <svg class="icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <small>Submitting here creates a preview only until the secure EnRoute backend is connected.</small>
+          <div class="contact-success" hidden>
+            <span><svg class="icon" width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
+            <h3>Your enquiry is ready.</h3>
+            <p>Backend delivery is not connected in this preview. For immediate assistance, send the same details to EnRoute on WhatsApp.</p>
+            <a href="https://wa.me/2348135458426" class="button button-primary">Continue on WhatsApp</a>
+            <button type="button" id="sendAnother">Send another enquiry</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== Call to action ===== -->
+    <section class="cta-section">
+      <div class="container cta-wrap">
+        <div><span>Ready when you are</span><h2>Planning your next trip?</h2><p>Let EnRoute help you put the journey together.</p></div>
+        <div>
+          <button type="button" class="button button-white" data-book="flight">Book now</button>
+          <button type="button" class="button button-ghost" data-book="flight">Get a quote</button>
+          <a href="https://wa.me/2348135458426" class="button button-ghost"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chat"/></svg> WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer>
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a href="#top" class="logo logo-light" aria-label="EnRoute home"><img src="images/enroute-logo.png" alt="EnRoute"></a>
+          <p>Your trusted starting point for flights, stays, cars and airport transfers.</p>
+          <a href="https://wa.me/2348135458426"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chat"/></svg> Chat with EnRoute on WhatsApp</a>
+        </div>
+        <div>
+          <h3>Services</h3>
+          <button type="button" data-book="flight">Flight Bookings</button>
+          <button type="button" data-book="hotel">Hotels &amp; Apartments</button>
+          <button type="button" data-book="car">Car Rentals</button>
+          <button type="button" data-book="transfer">Airport Transfers</button>
+        </div>
+        <div>
+          <h3>Company</h3>
+          <a href="#about">About EnRoute</a>
+          <a href="#corporate">Corporate travel</a>
+          <a href="#faq">FAQs</a>
+          <button type="button" data-open-login>Customer login</button>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <button type="button" data-policy="privacy">Privacy policy</button>
+          <button type="button" data-policy="terms">Terms &amp; conditions</button>
+          <button type="button" data-policy="refund">Refund &amp; cancellation</button>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <a href="mailto:Enroutebookingsng@gmail.com"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg> Enroutebookingsng@gmail.com</a>
+          <a href="tel:+2348135458426"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg> +234 813 545 8426</a>
+          <a href="tel:+2349025641390"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg> +234 902 564 1390</a>
+          <a href="https://instagram.com/Enroute_Travelsng"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-instagram"/></svg> @Enroute_Travelsng</a>
+        </div>
+      </div>
+      <div class="container footer-bottom"><span>© <span data-year>2026</span> EnRoute Travel &amp; Lifestyle.</span><span>Travel well. Arrive ready.</span></div>
+    </footer>
+
+    <!-- ===== Floating assistant ===== -->
+    <button type="button" class="assistant-launcher" id="assistantLauncher" aria-label="Open EnRoute travel assistant">
+      <svg class="icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sparkle"/></svg>
+      <span>Ask EnRoute</span>
+    </button>
+    <aside class="assistant-panel" id="assistantPanel" hidden>
+      <div class="assistant-head">
+        <span><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sparkle"/></svg></span>
+        <div><h3>EnRoute Assistant</h3><small>Travel guidance, not live pricing</small></div>
+        <button type="button" id="assistantClose" aria-label="Close assistant"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-close"/></svg></button>
+      </div>
+      <div class="assistant-body">
+        <p>Hello. I can help you choose the right EnRoute service, understand the booking process or find human support.</p>
+        <div>
+          <button type="button" data-assistant="chat">I need help planning a trip<svg class="icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button type="button" data-assistant="faq">How do booking requests work?<svg class="icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button type="button" data-assistant="support">Connect me to support<svg class="icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        </div>
+        <small>I won’t invent prices, availability or confirmations. Live details must come from the booking system or our team.</small>
+      </div>
+    </aside>
+
+    <!-- ===== Login popup ===== -->
+    <div class="modal-backdrop" id="loginModal" hidden>
+      <form class="modal" action="login.php" method="post" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+        <button type="button" class="modal-close" data-close-modal aria-label="Close"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-close"/></svg></button>
+        <span class="modal-icon"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-user"/></svg></span>
+        <p>Welcome to EnRoute</p>
+        <h2 id="loginTitle">Your journeys, all in one place.</h2>
+        <small>Customer accounts are prepared for secure backend connection. Once enabled, your profile, requests and booking history can stay connected to your unique customer ID.</small>
+        <label><span>Email address</span><input type="email" name="email" placeholder="you@example.com" autocomplete="email" required></label>
+        <label><span>Password</span><input type="password" name="password" placeholder="Enter your password" autocomplete="current-password" required></label>
+        <a href="forgot.html" class="modal-link">Forgot password?</a>
+        <button type="submit" class="button button-primary">Log in securely</button>
+        <div class="modal-foot">New to EnRoute? <button type="button" data-open-terms>Create an account</button></div>
+      </form>
+    </div>
+
+    <!-- ===== Terms popup (must be accepted before sign up) ===== -->
+    <div class="modal-backdrop" id="termsModal" hidden>
+      <div class="modal info-modal" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
+        <button type="button" class="modal-close" data-close-modal aria-label="Close"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-close"/></svg></button>
+        <p>Before you sign up</p>
+        <h2 id="termsTitle">Terms and Conditions</h2>
+        <div class="policy-copy terms-scroll">
+          <h3>1. Information We Collect</h3>
+          <ul>
+            <li>Your name, email, and phone number (for account and booking purposes).</li>
+            <li>Payment details (processed securely by trusted providers; not stored on our servers).</li>
+            <li>Travel preferences and booking history.</li>
+          </ul>
+          <h3>2. How We Use Your Information</h3>
+          <ul>
+            <li>To process bookings and send tickets/confirmations.</li>
+            <li>To contact you with updates or provide customer support.</li>
+            <li>To improve our services and personalize your experience.</li>
+          </ul>
+          <h3>3. Sharing of Data</h3>
+          <ul>
+            <li>Booking details are shared only with our travel partners (bus operators, airlines, hotels, etc.) so they can provide your service.</li>
+            <li>We never sell your personal information to third parties.</li>
+          </ul>
+          <h3>4. Security</h3>
+          <ul>
+            <li>All sensitive data is encrypted and kept secure.</li>
+            <li>Payments are processed securely by Paystack, Flutterwave, or other trusted gateways.</li>
+          </ul>
+          <h3>5. Your Rights</h3>
+          <ul>
+            <li>You can request to update or delete your account/data at any time.</li>
+            <li>You can unsubscribe from marketing emails or SMS at any time.</li>
+          </ul>
+          <h3>6. Consent</h3>
+          <p>By creating an account, you agree to these terms and conditions.</p>
+        </div>
+        <label class="terms-check"><input type="checkbox" id="agreeCheckbox"> I agree to all Terms and Conditions</label>
+        <button type="button" class="button button-primary" id="continueBtn" disabled>Continue to Sign Up</button>
+      </div>
+    </div>
+
+    <!-- ===== Policy popup (filled in by main.js) ===== -->
+    <div class="modal-backdrop" id="policyModal" hidden>
+      <div class="modal info-modal" role="dialog" aria-modal="true" aria-labelledby="policyTitle">
+        <button type="button" class="modal-close" data-close-modal aria-label="Close"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-close"/></svg></button>
+        <p>EnRoute policies</p>
+        <h2 id="policyTitle"></h2>
+        <div class="policy-copy">
+          <p>This page provides a clear foundation for EnRoute’s full legal policy. Final policy text should be reviewed for the business’s operating jurisdictions before launch.</p>
+          <h3 id="policyHeading"></h3>
+          <p id="policyText"></p>
+          <p>EnRoute will use reasonable safeguards, communicate material terms clearly and provide a contact route for questions or requests.</p>
+        </div>
+        <button type="button" class="button button-primary" data-close-modal>Close policy</button>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>

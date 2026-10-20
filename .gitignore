@@ -1,0 +1,8 @@
+# Local-only folders, not part of the website
+_backup-before-redesign/
+Website Redesign for EnRoute (1)/
+
+# Editor and system files
+.vscode/
+.DS_Store
+Thumbs.db
